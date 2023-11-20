@@ -81,17 +81,17 @@ public class Bot extends TelegramLongPollingBot {
 
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String buttonText = message.getText();
+            String poleText = message.getText();
             Long chatId = message.getChatId();
 
-//            System.out.println("--------------------------------------------- " + buttonText);
+//            System.out.println("--------------------------------------------- " + poleText);
 
 
-            if (buttonText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
+            if (poleText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
                 System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
                 startActivationTimer(chatId);
-            } else if (buttonText.equals("activate")) {
+            } else if (poleText.matches("3\\d{5}")) {
                 System.out.println("Akkkkkkkkkkkktivate");
             }
 
@@ -284,10 +284,12 @@ public class Bot extends TelegramLongPollingBot {
             public void run() {
                 sendActivationCodeRequest(chatId);
             }
-        }, 60 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
+        }, 6 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
+//        }, 60 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
     }
 
     private void sendActivationCodeRequest(long chatId) {
+        System.out.println("vyvelos -- vvedite cod activacyi");
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText("Введите ваш код активации:");
