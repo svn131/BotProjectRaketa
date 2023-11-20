@@ -123,9 +123,10 @@ public class Bot extends TelegramLongPollingBot {
                     igrok.toplivo--;
 
                     System.out.println(" vidatButtonDlyPoluchitCefyclychnyiMetod vidatButtonDlyPoluchitCefyclychnyiMetod");
-                    vidatButtonDlyPoluchitCefyclychnyiMetod(message, igrok);    //Oтправвка кефа
+                    vidatButtonDlyPoluchitCefyclychnyiMetod(chatId, igrok);    //Oтправвка кефа
                 } else {
-                    noMany(message);
+                    System.out.println("noooooooooooooooooooooo");
+                    noMany(chatId);
                 }
 
 
@@ -226,10 +227,15 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-    private void vidatButtonDlyPoluchitCefyclychnyiMetod(Message message, TelegramUser igrok) {
-        long chatId = message.getChatId();
+    private void vidatButtonDlyPoluchitCefyclychnyiMetod(Long chatId, TelegramUser igrok) {
+        System.out.println("11111111111111111111111111111111111111111111111111111111111111111111");
+
+//        long chatId = message.getChatId();
+
+        System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         Double cef = igrok.getCef();
 
+        System.out.println("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -251,6 +257,7 @@ public class Bot extends TelegramLongPollingBot {
         sendMessage.setReplyMarkup(markupInline);
 
         try {
+            System.out.println("1111111111111111111111122222222222222222222222222222222222222");
             execute(sendMessage); // Отправляем сообщение
         } catch (TelegramApiException e) {
             e.printStackTrace();
@@ -261,8 +268,10 @@ public class Bot extends TelegramLongPollingBot {
 
 
     // Метод для обработки команды "Старт" и отправки сообщения с кнопкой
-    private void noMany(Message message) {
-        long chatId = message.getChatId();
+    private void noMany(Long chatId) {
+        System.out.println("nooooooooooooooooooooooMany");
+
+//        long chatId = message.getChatId();
         if (usersMap.get(chatId).toplivo <= 0) {
 
             SendMessage sendMessage = new SendMessage();
