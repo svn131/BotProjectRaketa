@@ -16,14 +16,14 @@ import java.util.*;
 
 public class Bot extends TelegramLongPollingBot {
 
-//    boolean dobavitNovogoUsera = false;
+    //    boolean dobavitNovogoUsera = false;
 //
 //    static Map<Long, String> baseUsers = new HashMap<>();
 //
 //    public Bot() {
 //        ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
 //    }
-Map<Long, TelegramUser> usersMap = new HashMap<>();
+    Map<Long, TelegramUser> usersMap = new HashMap<>();
 
     @Override
     public String getBotUsername() {
@@ -51,8 +51,9 @@ Map<Long, TelegramUser> usersMap = new HashMap<>();
 
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText("Активация");
+            inlineKeyboardButton.setText("Activate");
             inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
+
             rowInline.add(inlineKeyboardButton);
 
             // Добавляем кнопку в строку и строку в клавиатуру
@@ -70,40 +71,32 @@ Map<Long, TelegramUser> usersMap = new HashMap<>();
         }
     }
 
-    // Метод для обработки введенного ID
-    private void handleIdInput(Message message) {
-        String text = message.getText();
-        // Проверка ID на корректность
-        if (text.matches("3\\d{5}")) {
-            // ID корректен, активация пользователя
-            long chatId = message.getChatId();
-            TelegramUser user = usersMap.get(chatId);
-            // ... логика активации ...
-        } else {
-            // ID некорректен, сообщение об ошибке
-            // ... отправить сообщение об ошибке ...
-        }
-    }
+
 
     public void onUpdateReceived(Update update) {
         System.out.println("onUpdateReceivedonUpdateReceivedonUpdateReceived");
 
+//        System.out.println("--------------------------------------------- " + update.hasMessage());
+
+
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            String text = message.getText();
+            String buttonText = message.getText();
+            Long chatId = message.getChatId();
 
-            if (text.equals("/start")) {
+//            System.out.println("--------------------------------------------- " + buttonText);
+
+
+            if (buttonText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
+                System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
-//            } else if (dobavitNovogoUsera) {
-//                // Ваша существующая логика добавления нового пользователя
-//            } else {
-//                // Ваша другая логика для обработки сообщений
-//            }
+                startActivationTimer(chatId);
+            } else if (buttonText.equals("activate")) {
+                System.out.println("Akkkkkkkkkkkktivate");
+            }
+
         }
     }
-
-
-
 
 
 //        if (update.hasMessage()) {
@@ -211,7 +204,7 @@ Map<Long, TelegramUser> usersMap = new HashMap<>();
 //            e.printStackTrace();
 //        }
 //        System.out.println("Data sent successfully to chatId: " + chatId);
-    }
+//    }
 
 
     //@todo Метод для отправки сообщения пользователю доделать..
@@ -225,7 +218,20 @@ Map<Long, TelegramUser> usersMap = new HashMap<>();
             e.printStackTrace();
         }
     }
-
+    // Метод для обработки введенного ID
+    private void handleIdInput(Message message) {
+        String text = message.getText();
+        // Проверка ID на корректность
+        if (text.matches("3\\d{5}")) {
+            // ID корректен, активация пользователя
+            long chatId = message.getChatId();
+            TelegramUser user = usersMap.get(chatId);
+            // ... логика активации ...
+        } else {
+            // ID некорректен, сообщение об ошибке
+            // ... отправить сообщение об ошибке ...
+        }
+    }
 
 //    public void sendArrayDataToAll(String[] dataArray) {
 ////        System.out.println("Delaetsya sendArrayDataToAll");
@@ -271,6 +277,74 @@ Map<Long, TelegramUser> usersMap = new HashMap<>();
         }
     }
 
+
+    private void startActivationTimer(long chatId) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sendActivationCodeRequest(chatId);
+            }
+        }, 60 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
+    }
+
+    private void sendActivationCodeRequest(long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Введите ваш код активации:");
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+//    List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+//    List<InlineKeyboardButton> rowInline = new ArrayList<>();
+//
+//    InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+//inlineKeyboardButton.setText("Активация");
+//        inlineKeyboardButton.setCallbackData("activate"); // Установка callback_data
+//        rowInline.add(inlineKeyboardButton);
+//
+//        rowsInline.add(rowInline);
+//        markupInline.setKeyboard(rowsInline);
+//        sendMessage.setReplyMarkup(markupInline);
