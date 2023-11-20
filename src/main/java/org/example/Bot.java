@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.*;
 
@@ -21,6 +22,8 @@ public class Bot extends TelegramLongPollingBot {
 //        ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
 //    }
     Map<Long, TelegramUser> usersMap = new HashMap<>();
+
+    List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "1111111111", "1111", "11111"));
 
     @Override
     public String getBotUsername() {
@@ -113,7 +116,17 @@ public class Bot extends TelegramLongPollingBot {
             if ("poluchitCef".equals(callData)) {                                           //todo пытаемся выдать кэф
 //                handlePoluchitCef(chatId);
                 System.out.println("-----------------------kefPochtyVidan");
+                TelegramUser igrok = usersMap.get(chatId);
+                Message message = update.getMessage();
 
+                if (igrok.toplivo > 0) {
+                    igrok.toplivo--;
+
+                    System.out.println(" vidatButtonDlyPoluchitCefyclychnyiMetod vidatButtonDlyPoluchitCefyclychnyiMetod");
+                    vidatButtonDlyPoluchitCefyclychnyiMetod(message, igrok);    //Oтправвка кефа
+                } else {
+                    noMany(message);
+                }
 
 
             }
@@ -121,15 +134,25 @@ public class Bot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             String poleText = message.getText();
             Long chatId = message.getChatId();
+            TelegramUser igrok = usersMap.get(chatId);
+
 
             if (poleText.equals("/start")) {
                 System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
                 startActivationTimer(chatId);
-            } else if (poleText.matches("3\\d{5}")) {
+            } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
                 System.out.println("Akkkkkkkkkkkktivate");
                 // логика новичка
+//                TelegramUser igrok = usersMap.get(chatId);
+                igrok.toplivo = igrok.toplivo + 3;
+
                 vidatButtonDlyPoluchitCef(message);
+
+            } else if (slovoPodoshlo(chatId, poleText)) { // проверка на правельный ключ
+                usersMap.get(chatId).toplivo = usersMap.get(chatId).toplivo + 3;
+                vidatButtonDlyPoluchitCef(message);
+
             } else {
                 handleStartCommand(message);
                 startActivationTimer(chatId); // повтор старт логики
@@ -202,6 +225,93 @@ public class Bot extends TelegramLongPollingBot {
 
     }
 
+
+    private void vidatButtonDlyPoluchitCefyclychnyiMetod(Message message, TelegramUser igrok) {
+        long chatId = message.getChatId();
+        Double cef = igrok.getCef();
+
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("ВАШ КОФИЦИЕНТ\n " + cef);  //Oтправвка кефа
+
+
+        // Создаем клавиатуру
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+        rowInline.add(inlineKeyboardButton);
+
+        rowsInline.add(rowInline);
+        markupInline.setKeyboard(rowsInline);
+        sendMessage.setReplyMarkup(markupInline);
+
+        try {
+            execute(sendMessage); // Отправляем сообщение
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    // Метод для обработки команды "Старт" и отправки сообщения с кнопкой
+    private void noMany(Message message) {
+        long chatId = message.getChatId();
+        if (usersMap.get(chatId).toplivo <= 0) {
+
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("ШИБКА СТАТУС НЕХВАТКА БАЛАНСА\nПополните свой баланс и свяжитесь со своим Менеджером.");
+
+            // Создаем клавиатуру
+            InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+            List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+            List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+            // Создаем кнопку
+            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+            inlineKeyboardButton.setText("Связь с Менеджером");
+            inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
+
+            rowInline.add(inlineKeyboardButton);
+
+            // Добавляем кнопку в строку и строку в клавиатуру
+            rowsInline.add(rowInline);
+            markupInline.setKeyboard(rowsInline);
+
+            // Добавляем клавиатуру к сообщению
+            sendMessage.setReplyMarkup(markupInline);
+
+            startActivationTimer(chatId); // выводим сообщение через минуту ???
+            try {
+                execute(sendMessage); // Отправляем сообщение
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public boolean slovoPodoshlo(Long chatId, String slovoVveddeno) {
+        TelegramUser igrok = usersMap.get(chatId);
+        int cykl = igrok.cykl;
+        String dolghenBytKey = keyList.get(cykl);
+
+
+        boolean res = slovoVveddeno.equals(dolghenBytKey);
+
+        if (res) {
+            igrok.cykl++; // todo Выдаст тру на ето слово только один раз
+        }
+
+        return res;
+    }
 
 //        if (update.hasMessage()) {
 
