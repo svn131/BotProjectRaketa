@@ -8,10 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.api.objects.User;
 
-import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Bot extends TelegramLongPollingBot {
@@ -68,34 +65,141 @@ public class Bot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+        } else { // неверный код активации
+
+
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("Статус: Не верный ключ Активации.\nДля активации свяжитесь со своим менеджером.");
+
+            // Создаем клавиатуру
+            InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+            List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+            List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+            // Создаем кнопку
+            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+            inlineKeyboardButton.setText("Activate");
+            inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
+
+            rowInline.add(inlineKeyboardButton);
+
+            // Добавляем кнопку в строку и строку в клавиатуру
+            rowsInline.add(rowInline);
+            markupInline.setKeyboard(rowsInline);
+
+            // Добавляем клавиатуру к сообщению
+            sendMessage.setReplyMarkup(markupInline);
+
+            try {
+                execute(sendMessage); // Отправляем сообщение
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
-
 
 
     public void onUpdateReceived(Update update) {
         System.out.println("onUpdateReceivedonUpdateReceivedonUpdateReceived");
 
-//        System.out.println("--------------------------------------------- " + update.hasMessage());
+        // Проверяем, есть ли callback query в обновлении
+        if (update.hasCallbackQuery()) {
+            String callData = update.getCallbackQuery().getData();
+            long chatId = update.getCallbackQuery().getMessage().getChatId();
+
+            if ("poluchitCef".equals(callData)) {                                           //todo пытаемся выдать кэф
+//                handlePoluchitCef(chatId);
+                System.out.println("-----------------------kefPochtyVidan");
 
 
-        if (update.hasMessage()) {
+
+            }
+        } else if (update.hasMessage()) {
             Message message = update.getMessage();
             String poleText = message.getText();
             Long chatId = message.getChatId();
 
-//            System.out.println("--------------------------------------------- " + poleText);
-
-
-            if (poleText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
+            if (poleText.equals("/start")) {
                 System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
                 startActivationTimer(chatId);
             } else if (poleText.matches("3\\d{5}")) {
                 System.out.println("Akkkkkkkkkkkktivate");
+                // логика новичка
+                vidatButtonDlyPoluchitCef(message);
+            } else {
+                handleStartCommand(message);
+                startActivationTimer(chatId); // повтор старт логики
             }
-
         }
+    }
+
+
+//    public void onUpdateReceived(Update update) {
+//        System.out.println("onUpdateReceivedonUpdateReceivedonUpdateReceived");
+//
+////        System.out.println("--------------------------------------------- " + update.hasMessage());
+//
+//
+//        if (update.hasMessage()) {
+//            Message message = update.getMessage();
+//            String poleText = message.getText();
+//            Long chatId = message.getChatId();
+//
+////            System.out.println("--------------------------------------------- " + poleText);
+//
+//
+//            if (poleText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
+//                System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
+//                handleStartCommand(message);
+//                startActivationTimer(chatId);
+//            } else if (poleText.matches("3\\d{5}")) {
+//                System.out.println("Akkkkkkkkkkkktivate");
+//                // логика новичка
+//
+//                vidatCef(message);
+//
+//
+//            } else {
+//                handleStartCommand(message);
+//                startActivationTimer(chatId);
+//            }
+//
+//        }
+//    }
+
+
+    private void vidatButtonDlyPoluchitCef(Message message) {
+        long chatId = message.getChatId();
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("Активация прошла успешно.\nДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
+
+        // Создаем клавиатуру
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+        rowInline.add(inlineKeyboardButton);
+
+        rowsInline.add(rowInline);
+        markupInline.setKeyboard(rowsInline);
+        sendMessage.setReplyMarkup(markupInline);
+
+        try {
+            execute(sendMessage); // Отправляем сообщение
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
@@ -218,6 +322,7 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
     // Метод для обработки введенного ID
     private void handleIdInput(Message message) {
         String text = message.getText();
@@ -304,40 +409,6 @@ public class Bot extends TelegramLongPollingBot {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //    InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 //    List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 //    List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -350,3 +421,29 @@ public class Bot extends TelegramLongPollingBot {
 //        rowsInline.add(rowInline);
 //        markupInline.setKeyboard(rowsInline);
 //        sendMessage.setReplyMarkup(markupInline);
+
+
+//
+//    @Override
+//    public void onUpdateReceived(Update update) {
+//        if (update.hasCallbackQuery()) {
+//            // Получаем данные callback_query
+//            String callData = update.getCallbackQuery().getData();
+//            long chatId = update.getCallbackQuery().getMessage().getChatId();
+//
+//            if ("poluchitCef".equals(callData)) {
+//                // Пользователь нажал на кнопку "Получить кеф"
+//                // Обрабатываем нажатие
+//                handlePoluchitCef(chatId);
+//            }
+//        } else if (update.hasMessage()) {
+//            Message message = update.getMessage();
+//            // ... Обработка других сообщений ...
+//        }
+//    }
+//
+//    private void handlePoluchitCef(long chatId) {
+//        // Логика для выдачи кефа пользователю
+//        // Например, проверка, достаточно ли у пользователя топлива и т.д.
+//        // ...
+//    }
