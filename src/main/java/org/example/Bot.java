@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.w3c.dom.ls.LSOutput;
+
 
 import java.util.*;
 
@@ -118,7 +118,6 @@ public class Bot extends TelegramLongPollingBot {
 
 
     public void onUpdateReceived(Update update) {
-        System.out.println("onUpdateReceivedonUpdateReceivedonUpdateReceived");
 
         // Проверяем, есть ли callback query в обновлении
         if (update.hasCallbackQuery()) {
@@ -126,18 +125,15 @@ public class Bot extends TelegramLongPollingBot {
             long chatId = update.getCallbackQuery().getMessage().getChatId();
 
             if ("poluchitCef".equals(callData)) {                                           //todo пытаемся выдать кэф
-//                handlePoluchitCef(chatId);
-                System.out.println("-----------------------kefPochtyVidan");
+
                 TelegramUser igrok = usersMap.get(chatId);
                 Message message = update.getMessage();
 
                 if (igrok.toplivo > 0) {
                     igrok.toplivo--;
 
-                    System.out.println(" vidatButtonDlyPoluchitCefyclychnyiMetod vidatButtonDlyPoluchitCefyclychnyiMetod");
                     vidatButtonDlyPoluchitCefyclychnyiMetod(chatId, igrok);    //Oтправвка кефа
                 } else {
-                    System.out.println("noooooooooooooooooooooo");
                     noMany(chatId);
                 }
 
@@ -151,15 +147,12 @@ public class Bot extends TelegramLongPollingBot {
 
 
             if (poleText.equals("/start")) {
-                System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
-//               if(!usersMap.containsKey(chatId)){ // что бы не ыдавать фразу введите ключ активции тем кто уже ст
                 startActivationTimer(chatId);
-//               }
+
             } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
-                System.out.println("Akkkkkkkkkkkktivate");
                 // логика новичка
-//                TelegramUser igrok = usersMap.get(chatId);
+
                 igrok.toplivo = igrok.toplivo + 3;
 
                 vidatButtonDlyPoluchitCef(message);
@@ -184,39 +177,6 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-
-//    public void onUpdateReceived(Update update) {
-//        System.out.println("onUpdateReceivedonUpdateReceivedonUpdateReceived");
-//
-////        System.out.println("--------------------------------------------- " + update.hasMessage());
-//
-//
-//        if (update.hasMessage()) {
-//            Message message = update.getMessage();
-//            String poleText = message.getText();
-//            Long chatId = message.getChatId();
-//
-////            System.out.println("--------------------------------------------- " + poleText);
-//
-//
-//            if (poleText.equals("/start")) { //todo добаввить топливо 0 и цикл перовый
-//                System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
-//                handleStartCommand(message);
-//                startActivationTimer(chatId);
-//            } else if (poleText.matches("3\\d{5}")) {
-//                System.out.println("Akkkkkkkkkkkktivate");
-//                // логика новичка
-//
-//                vidatCef(message);
-//
-//
-//            } else {
-//                handleStartCommand(message);
-//                startActivationTimer(chatId);
-//            }
-//
-//        }
-//    }
 
 
     private void vidatButtonDlyPoluchitCef(Message message) {
@@ -280,18 +240,11 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-
-
-
     private void vidatButtonDlyPoluchitCefyclychnyiMetod(Long chatId, TelegramUser igrok) {
-        System.out.println("11111111111111111111111111111111111111111111111111111111111111111111");
 
-//        long chatId = message.getChatId();
 
-        System.out.println("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         Double cef = igrok.getCef();
 
-        System.out.println("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -313,7 +266,6 @@ public class Bot extends TelegramLongPollingBot {
         sendMessage.setReplyMarkup(markupInline);
 
         try {
-            System.out.println("1111111111111111111111122222222222222222222222222222222222222");
             execute(sendMessage); // Отправляем сообщение
         } catch (TelegramApiException e) {
             e.printStackTrace();
@@ -325,7 +277,6 @@ public class Bot extends TelegramLongPollingBot {
 
     // Метод для обработки команды "Старт" и отправки сообщения с кнопкой
     private void noMany(Long chatId) {
-        System.out.println("nooooooooooooooooooooooMany");
 
 //        long chatId = message.getChatId();
         if (usersMap.get(chatId).toplivo <= 0) {
@@ -411,114 +362,6 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-//        if (update.hasMessage()) {
-
-
-//            if (dobavitNovogoUsera) {
-//
-//                dobavitNovogoUsera = false;
-//                Message message = update.getMessage(); //@todo добавить лоику если уже кто то из активированых что то пришлет перед новым ползоватлем
-//                Long chatId = message.getChatId(); // Получаем chat ID пользователя
-//                // Дальше можно использовать chatId для отправки сообщения обратно пользователю или для других действий.
-//
-//                // Пример вывода chat ID в консоль:
-////                System.out.println("Chat ID: " + chatId);
-//
-//                User user = message.getFrom();
-//                String username = user.getUserName(); // Получаем юзернейм пользователя
-//
-//                String firstName = user.getFirstName(); // Получение имени пользователя
-//                String lastName = user.getLastName(); // Получение фамилии пользователя
-//
-//
-//                String value = ""; // Инициализируем значение
-//
-//                if (username != null) {
-//                    value += "@" + username;
-//                }
-//                if (firstName != null) {
-//                    value += " " + firstName;
-//                }
-//                if (lastName != null) {
-//                    value += " " + lastName;
-//                }
-//
-//                String currentDate = LocalDateTime.now().toString();
-//                value += " " + currentDate;
-//
-//
-//                System.out.println("Dobavka v mapu");
-//                baseUsers.put(chatId, value); // Добавляем в хеш-карту
-//
-//
-//                System.out.println("Содержимое Map:");
-//                for (Map.Entry<Long, String> entry : baseUsers.entrySet()) {
-//                    Long key = entry.getKey();
-//                    String val = entry.getValue();
-//                    System.out.println("Key: " + key + ", Value: " + val);
-//                }
-//
-//
-//                // Пример вывода значения из хеш-карты:
-//                System.out.println("User Info: " + baseUsers.get(chatId));
-//
-//
-//                // Открытие файлового потока для чтения
-//
-/////////////////////////////////////////////////////////////////////////////////
-//                if (!ReadOnWrite.checkChatIdExists("C:/userBasesMapa.txt", chatId)) {
-//                    try (FileWriter writer = new FileWriter("C:/userBasesMapa.txt", true)) {
-//                        writer.write(chatId + " " + value + "\n");
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                        // Обработка ошибки записи файла
-//                    }
-//                }
-//
-//
-//                /////////////////////////////////////////////////////////////////////////////////////
-//
-//
-//                sendOk(chatId);
-//
-//            } else {
-//                sendError(update.getMessage().getChatId());
-//                System.out.println("Попытка доступа при закрытой заслонке ");
-//            }
-//
-//            ////
-//            Message message = update.getMessage();
-//            String text = message.getText();
-//
-//            if (text.contains("Delates")) {
-//                // @todo логика удаления пользователя
-//            } else if (text.equals("Vhodi")) {
-//
-//                dobavitNovogoUsera = true;
-//            } else if (text.equals("S")) { // @todo Метод для отладки
-//                sendArrayDataToAll(new String[]{"data1", "data2", "data3"});
-//            }
-//
-//
-//        }
-//    }
-
-
-//    // Метод для отправки массива строк пользователю
-//    private void sendArrayData(Long chatId, String[] dataArray) {
-//
-//        SendMessage sendMessage = new SendMessage();
-//        sendMessage.setText(String.join("\n", dataArray));
-//        sendMessage.setChatId(chatId);
-//        try {
-//            execute(sendMessage); // Синхронное выполнение для простоты
-//        } catch (TelegramApiException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Data sent successfully to chatId: " + chatId);
-//    }
-
-
     //@todo Метод для отправки сообщения пользователю доделать..
     public void sendMessage(Long chatId, String messageText) {
         SendMessage sendMessage = new SendMessage();
@@ -545,6 +388,63 @@ public class Bot extends TelegramLongPollingBot {
             // ... отправить сообщение об ошибке ...
         }
     }
+
+
+
+    public void sendError(Long chatId) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen");
+        sendMessage.setChatId(chatId);
+        try {
+            executeAsync(sendMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void startActivationTimer(long chatId) {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sendActivationCodeRequest(chatId);
+            }
+        }, 6 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
+//        }, 60 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
+    }
+
+    private void sendActivationCodeRequest(long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Введите ваш код активации:");
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void sendMesageFinishNo(Long chatId) {
+
+
+
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\n попробуйте снова");
+
+
+            try {
+                execute(sendMessage); // Отправляем сообщение
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+}
+
 
 //    public void sendArrayDataToAll(String[] dataArray) {
 ////        System.out.println("Delaetsya sendArrayDataToAll");
@@ -578,65 +478,6 @@ public class Bot extends TelegramLongPollingBot {
 //            e.printStackTrace();
 //        }
 //    }
-
-    public void sendError(Long chatId) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen");
-        sendMessage.setChatId(chatId);
-        try {
-            executeAsync(sendMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void startActivationTimer(long chatId) {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                sendActivationCodeRequest(chatId);
-            }
-        }, 6 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
-//        }, 60 * 1000); // Задержка в 60 000 миллисекунд (1 минута)
-    }
-
-    private void sendActivationCodeRequest(long chatId) {
-        System.out.println("vyvelos -- vvedite cod activacyi");
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText("Введите ваш код активации:");
-        try {
-            execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    private void sendMesageFinishNo(Long chatId) {
-
-
-
-            SendMessage sendMessage = new SendMessage();
-            sendMessage.setChatId(chatId);
-            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\n попробуйте снова");
-
-
-            try {
-                execute(sendMessage); // Отправляем сообщение
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-
-    }
-
-
-
-
-}
-
 
 //    InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 //    List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
