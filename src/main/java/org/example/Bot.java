@@ -20,6 +20,8 @@ public class Bot extends TelegramLongPollingBot {
 
     String operatorNikName;
 
+    int countLive;
+
 
     Map<Long, TelegramUser> usersMap = new HashMap<>();
 
@@ -48,7 +50,7 @@ public class Bot extends TelegramLongPollingBot {
             usersMap.put(chatId, new TelegramUser(chatId));
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Статус: Не активен.\nДля активации свяжитесь со своим менеджером.");
+            sendMessage.setText("Статус: Не активен❌\nДля активации свяжитесь со своим менеджером.");
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -57,7 +59,7 @@ public class Bot extends TelegramLongPollingBot {
 
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText("Activate");
+            inlineKeyboardButton.setText("Актиация");
             inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
 
             rowInline.add(inlineKeyboardButton);
@@ -92,7 +94,7 @@ public class Bot extends TelegramLongPollingBot {
 
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText("Activate");
+            inlineKeyboardButton.setText("Активация");
             inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
 
             rowInline.add(inlineKeyboardButton);
@@ -164,8 +166,17 @@ public class Bot extends TelegramLongPollingBot {
 
             } else if (slovoPodoshlo(chatId, poleText)) { // проверка на правельный ключ
                 usersMap.get(chatId).toplivo = usersMap.get(chatId).toplivo + 3;
-                vidatButtonDlyPoluchitCef(message);
+                vidatButtonDlyPoluchitCefNewKey(message); //todo доступ возобнавлен новый метод
 
+
+            }else if(igrok.cykl>1 || igrok.toplivo == 0){
+               sendMesageFinishNo(chatId);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                noMany(chatId);
             } else {
                 handleStartCommand(message);
                 startActivationTimer(chatId); // повтор старт логики
@@ -213,7 +224,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Активация прошла успешно.\nДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
+        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -221,7 +232,7 @@ public class Bot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
         inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
         rowInline.add(inlineKeyboardButton);
 
@@ -237,6 +248,39 @@ public class Bot extends TelegramLongPollingBot {
 
 
     }
+
+    private void vidatButtonDlyPoluchitCefNewKey(Message message) {
+        long chatId = message.getChatId();
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("Доступ возобновлен✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+
+        // Создаем клавиатуру
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
+        inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+        rowInline.add(inlineKeyboardButton);
+
+        rowsInline.add(rowInline);
+        markupInline.setKeyboard(rowsInline);
+        sendMessage.setReplyMarkup(markupInline);
+
+        try {
+            execute(sendMessage); // Отправляем сообщение
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
 
 
     private void vidatButtonDlyPoluchitCefyclychnyiMetod(Long chatId, TelegramUser igrok) {
@@ -260,7 +304,7 @@ public class Bot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
         inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
         rowInline.add(inlineKeyboardButton);
 
@@ -288,7 +332,8 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("ШИБКА СТАТУС НЕХВАТКА БАЛАНСА\nПополните свой баланс и свяжитесь со своим Менеджером.");
+            sendMessage.setText("ОШИБКА\uD83D\uDEA8 \n\n Статус нехватка баланса\n\n<b>Пополните свой баланс и свяжитесь со своим Менеджером.</b>");
+            sendMessage.enableHtml(true);
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -297,7 +342,7 @@ public class Bot extends TelegramLongPollingBot {
 
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-            inlineKeyboardButton.setText("Связь с Менеджером");
+            inlineKeyboardButton.setText("Связь с менеджером");
             inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
 
             rowInline.add(inlineKeyboardButton);
@@ -348,7 +393,7 @@ public class Bot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
 
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
         inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
         rowInline.add(inlineKeyboardButton);
 
@@ -567,6 +612,27 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
+
+
+    private void sendMesageFinishNo(Long chatId) {
+
+
+
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(chatId);
+            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\n попробуйте снова");
+
+
+            try {
+                execute(sendMessage); // Отправляем сообщение
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+
 
 
 }
