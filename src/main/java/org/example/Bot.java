@@ -53,7 +53,7 @@ public class Bot extends TelegramLongPollingBot {
             usersMap.put(chatId, new TelegramUser(chatId));
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Статус: Не активен❌\nДля активации свяжитесь со своим менеджером.");
+            sendMessage.setText("Статус: Не активен❌\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля активации свяжитесь со своим менеджером.");
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -88,7 +88,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Статус: Не верный ключ Активации.\nДля активации свяжитесь со своим менеджером.");
+            sendMessage.setText("Статус: Не верный ключ Активации.\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля активации свяжитесь со своим менеджером.");
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -220,7 +220,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Доступ возобновлен✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+        sendMessage.setText("Доступ возобновлен✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BУдачной игры\uD83E\uDD11");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -254,7 +254,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("ВАШ КОФИЦИЕНТ\n " + cef);  //Oтправвка кефа
+        sendMessage.setText("ВАШ КОФИЦИЕНТ\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B " + cef);  //Oтправвка кефа
 
 
         // Создаем клавиатуру
@@ -289,7 +289,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("ОШИБКА\uD83D\uDEA8 \n\n Статус нехватка баланса\n\n<b>Пополните свой баланс и свяжитесь со своим Менеджером.</b>");
+            sendMessage.setText("ОШИБКА\uD83D\uDEA8 \n\n Статус нехватка баланса\n\n<b>Пополните свой баланс и свяжитесь \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200Bсо своим Менеджером.</b>");
             sendMessage.enableHtml(true);
 
             // Создаем клавиатуру
@@ -342,7 +342,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Рады видеть Вас вновь\nДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
+        sendMessage.setText("Рады видеть Вас вновь\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -399,7 +399,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public void sendError(Long chatId) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Ошика доступа обратитесь к Администраторам @GOLDGAME77777 @BakharevDen");
+        sendMessage.setText("Ошика доступа обратитесь к Администраторам ");
         sendMessage.setChatId(chatId);
         try {
             executeAsync(sendMessage);
@@ -437,7 +437,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\n попробуйте снова");
+            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B попробуйте снова");
 
 
             try {
