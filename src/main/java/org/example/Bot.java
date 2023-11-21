@@ -18,14 +18,17 @@ public class Bot extends TelegramLongPollingBot {
 
     String botUserName;
 
+    String operatorNikName;
+
 
     Map<Long, TelegramUser> usersMap = new HashMap<>();
 
     List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "Aviator1745", "Aviator2752", "Aviator3769", "Aviator4774", "Aviator5782", "Aviator6791", "Aviator7797"));
 
-//    public Bot(String botToken, String botUserName) {
+//    public Bot(String botToken, String botUserName, String operatorNikName) {
 //        this.botToken = botToken;
 //        this.botUserName = botUserName;
+//        this.operatorNikName = operatorNikName;
 //    }
 
     @Override

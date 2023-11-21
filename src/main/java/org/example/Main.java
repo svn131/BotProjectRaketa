@@ -13,11 +13,14 @@ public class Main {
 //        Scanner scnToken = new Scanner(System.in);
 //        System.out.println("Введите nikName бота (без знака @)");
 //        Scanner scnNik = new Scanner(System.in);
-
-
-
-
-//        Bot bot = new Bot(scnToken.nextLine(),scnNik.nextLine());
+//        System.out.println("Введите nikName Менеджера в формате https://t.me/nikname");
+//        Scanner scnMeneger = new Scanner(System.in);
+//
+//
+//
+//
+//
+//        Bot bot = new Bot(scnToken.nextLine(),scnNik.nextLine(),scnMeneger.nextLine());
         Bot bot = new Bot();
 
         Main main = new Main();
