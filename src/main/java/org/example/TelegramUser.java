@@ -11,6 +11,7 @@ class TelegramUser {
     long id;
     int toplivo = 0;
     int cykl = 1;
+    boolean activate = false;
 
 
     List<Double> cefy;

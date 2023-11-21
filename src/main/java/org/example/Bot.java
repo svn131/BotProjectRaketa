@@ -152,8 +152,9 @@ public class Bot extends TelegramLongPollingBot {
                 handleStartCommand(message);
                 startActivationTimer(chatId);
 
-            } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
+            } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1&&!igrok.activate) {
                 // логика новичка
+                igrok.activate = true;
 
                 igrok.toplivo = igrok.toplivo + countLive;
 
