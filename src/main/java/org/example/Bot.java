@@ -6,7 +6,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
@@ -116,7 +119,6 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-
     public void onUpdateReceived(Update update) {
 
         // Проверяем, есть ли callback query в обновлении
@@ -184,7 +186,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмите\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -194,6 +196,8 @@ public class Bot extends TelegramLongPollingBot {
         InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
         inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
         inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+
+
         rowInline.add(inlineKeyboardButton);
 
         rowsInline.add(rowInline);
@@ -208,6 +212,8 @@ public class Bot extends TelegramLongPollingBot {
 
 
     }
+
+
 
     private void vidatButtonDlyPoluchitCefNewKey(Message message) {
         long chatId = message.getChatId();
@@ -425,7 +431,6 @@ public class Bot extends TelegramLongPollingBot {
     }
 
 
-
     private void sendMesageFinishNo(Long chatId) {
 
 
@@ -516,4 +521,71 @@ public class Bot extends TelegramLongPollingBot {
 //        // Логика для выдачи кефа пользователю
 //        // Например, проверка, достаточно ли у пользователя топлива и т.д.
 //        // ...
+//    }
+
+
+
+// кнокп ина весь экран снизу
+//    public void vidatButtonDlyPoluchitCef(Message message) {
+//        long chatId = message.getChatId();
+//
+//        SendMessage sendMessage = new SendMessage();
+//        sendMessage.setChatId(chatId);
+//        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмите на кнопку - получить кэф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+//
+//        // Создаем клавиатуру
+//        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+//        List<KeyboardRow> keyboard = new ArrayList<>();
+//        KeyboardRow row = new KeyboardRow();
+//
+//        // Создаем кнопку
+//        KeyboardButton keyboardButton = new KeyboardButton("11Получить кэф\uD83D\uDE80");
+//
+//        row.add(keyboardButton);
+//        keyboard.add(row);
+//
+//        replyKeyboardMarkup.setKeyboard(keyboard);
+//        replyKeyboardMarkup.setResizeKeyboard(true);
+//        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+//
+//        try {
+//            execute(sendMessage); // Отправляем сообщение
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
+//регулировка по ширене
+//    private void vidatButtonDlyPoluchitCef(Message message) {
+//        long chatId = message.getChatId();
+//
+//        SendMessage sendMessage = new SendMessage();
+//        sendMessage.setChatId(chatId);
+//        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмите\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+//
+//        // Создаем клавиатуру
+//        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+//        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+//        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+//
+//        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+//        inlineKeyboardButton.setText("Получить кэф\uD83D\uDE80");
+//        inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+//
+//
+//        rowInline.add(inlineKeyboardButton);
+//
+//        rowsInline.add(rowInline);
+//        markupInline.setKeyboard(rowsInline);
+//        sendMessage.setReplyMarkup(markupInline);
+//
+//        try {
+//            execute(sendMessage); // Отправляем сообщение
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//
+//
 //    }
