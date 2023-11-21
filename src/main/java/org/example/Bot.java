@@ -23,7 +23,7 @@ public class Bot extends TelegramLongPollingBot {
 //    }
     Map<Long, TelegramUser> usersMap = new HashMap<>();
 
-    List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "1111111111", "1111", "11111"));
+    List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "aviatorTrue", "aviatorTrue2", "aviatorTrue3"));
 
     @Override
     public String getBotUsername() {
@@ -70,6 +70,10 @@ public class Bot extends TelegramLongPollingBot {
             }
         } else { // неверный код активации
 
+            if (usersMap.get(chatId).toplivo > 0) { // если перезашел и сного нажал старт
+                radyVnovViddetVas(message);
+                return;
+            }
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
@@ -141,7 +145,9 @@ public class Bot extends TelegramLongPollingBot {
             if (poleText.equals("/start")) {
                 System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
-                startActivationTimer(chatId);
+               if(!usersMap.containsKey(chatId)){ // что бы не ыдавать фразу введите ключ активции тем кто уже ст
+                   startActivationTimer(chatId);
+               }
             } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
                 System.out.println("Akkkkkkkkkkkktivate");
                 // логика новичка
@@ -321,6 +327,39 @@ public class Bot extends TelegramLongPollingBot {
 
         return res;
     }
+
+
+    private void radyVnovViddetVas(Message message) {
+        long chatId = message.getChatId();
+
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText("Рады видеть Вас вновь\nДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
+
+        // Создаем клавиатуру
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+        inlineKeyboardButton.setText("Poluchit cef");
+        inlineKeyboardButton.setCallbackData("poluchitCef"); // Установка callback_data
+        rowInline.add(inlineKeyboardButton);
+
+        rowsInline.add(rowInline);
+        markupInline.setKeyboard(rowsInline);
+        sendMessage.setReplyMarkup(markupInline);
+
+        try {
+            execute(sendMessage); // Отправляем сообщение
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
 
 //        if (update.hasMessage()) {
 
