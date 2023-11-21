@@ -23,27 +23,27 @@ public class Bot extends TelegramLongPollingBot {
 
     String operatorNikName;
 
-    int countLive;
+    int countLive = 3;
 
 
     Map<Long, TelegramUser> usersMap = new HashMap<>();
 
     List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "Aviator1745", "Aviator2752", "Aviator3769", "Aviator4774", "Aviator5782", "Aviator6791", "Aviator7797"));
 
-//    public Bot(String botToken, String botUserName, String operatorNikName) {
-//        this.botToken = botToken;
-//        this.botUserName = botUserName;
-//        this.operatorNikName = operatorNikName;
-//    }
+    public Bot(String botToken, String botUserName, String operatorNikName) {
+        this.botToken = botToken;
+        this.botUserName = botUserName;
+        this.operatorNikName = operatorNikName;
+    }
 
     @Override
     public String getBotUsername() {
-        return "SportsBot10_bot"; // Метод, который возвращает username бота.
+        return botUserName; // Метод, который возвращает username бота.
     }
 
     @Override
     public String getBotToken() {
-        return "6493956819:AAHbHe4wsGPvvD97SfEyLJK5k2jJJZgIzZ0"; // Метод, который возвращает token бота.
+        return botToken; // Метод, который возвращает token бота.
     }
 
     // Метод для обработки команды "Старт" и отправки сообщения с кнопкой
@@ -63,7 +63,7 @@ public class Bot extends TelegramLongPollingBot {
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
             inlineKeyboardButton.setText("Актиация");
-            inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
+            inlineKeyboardButton.setUrl(operatorNikName);
 
             rowInline.add(inlineKeyboardButton);
 
@@ -98,7 +98,7 @@ public class Bot extends TelegramLongPollingBot {
             // Создаем кнопку
             InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
             inlineKeyboardButton.setText("Активация");
-            inlineKeyboardButton.setUrl("https://t.me/vladimirai2023");
+            inlineKeyboardButton.setUrl(operatorNikName);
 
             rowInline.add(inlineKeyboardButton);
 
@@ -155,12 +155,12 @@ public class Bot extends TelegramLongPollingBot {
             } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
                 // логика новичка
 
-                igrok.toplivo = igrok.toplivo + 3;
+                igrok.toplivo = igrok.toplivo + countLive;
 
                 vidatButtonDlyPoluchitCef(message);
 
             } else if (slovoPodoshlo(chatId, poleText)) { // проверка на правельный ключ
-                usersMap.get(chatId).toplivo = usersMap.get(chatId).toplivo + 3;
+                usersMap.get(chatId).toplivo = usersMap.get(chatId).toplivo + countLive;
                 vidatButtonDlyPoluchitCefNewKey(message); //todo доступ возобнавлен новый метод
 
 

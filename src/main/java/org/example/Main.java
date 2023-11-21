@@ -9,31 +9,25 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws TelegramApiException {
-//        System.out.println("Введите токен бота");
-//        Scanner scnToken = new Scanner(System.in);
-//        System.out.println("Введите nikName бота (без знака @)");
-//        Scanner scnNik = new Scanner(System.in);
-//        System.out.println("Введите nikName Менеджера в формате https://t.me/nikname");
-//        Scanner scnMeneger = new Scanner(System.in);
-//
-//
-//
-//
-//
-//        Bot bot = new Bot(scnToken.nextLine(),scnNik.nextLine(),scnMeneger.nextLine());
-        Bot bot = new Bot();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите токен бота");
+        String token = scanner.nextLine();
+
+        System.out.println("Введите nikName бота (без знака @)");
+        String botName = scanner.nextLine();
+
+        System.out.println("Введите nikName Менеджера в формате https://t.me/nikname");
+        String managerNik = scanner.nextLine();
+
+        Bot bot = new Bot(token, botName, managerNik);
 
         Main main = new Main();
-
         main.myregisterBot(bot);
+    }
 
-
-        }
-    public   void myregisterBot(Bot bot) throws TelegramApiException {
-
+    public void myregisterBot(Bot bot) throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         telegramBotsApi.registerBot(bot);
     }
-
-
-    }
+}
