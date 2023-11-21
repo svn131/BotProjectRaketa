@@ -14,16 +14,19 @@ import java.util.*;
 
 public class Bot extends TelegramLongPollingBot {
 
-    //    boolean dobavitNovogoUsera = false;
-//
-//    static Map<Long, String> baseUsers = new HashMap<>();
-//
-//    public Bot() {
-//        ReadOnWrite.loadBaseUsers("C:/userBasesMapa.txt", baseUsers);
-//    }
+    String botToken;
+
+    String botUserName;
+
+
     Map<Long, TelegramUser> usersMap = new HashMap<>();
 
-    List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "aviatorTrue", "aviatorTrue2", "aviatorTrue3"));
+    List<String> keyList = new ArrayList<>(Arrays.asList("dsdasdwvcvfvf", "Aviator1745", "Aviator2752", "Aviator3769", "Aviator4774", "Aviator5782", "Aviator6791", "Aviator7797"));
+
+//    public Bot(String botToken, String botUserName) {
+//        this.botToken = botToken;
+//        this.botUserName = botUserName;
+//    }
 
     @Override
     public String getBotUsername() {
@@ -145,9 +148,9 @@ public class Bot extends TelegramLongPollingBot {
             if (poleText.equals("/start")) {
                 System.out.println("SSSSSSSSSSSSSSSSSSSSStart");
                 handleStartCommand(message);
-               if(!usersMap.containsKey(chatId)){ // что бы не ыдавать фразу введите ключ активции тем кто уже ст
-                   startActivationTimer(chatId);
-               }
+//               if(!usersMap.containsKey(chatId)){ // что бы не ыдавать фразу введите ключ активции тем кто уже ст
+                startActivationTimer(chatId);
+//               }
             } else if (poleText.matches("3\\d{5}") && igrok.cykl == 1) {
                 System.out.println("Akkkkkkkkkkkktivate");
                 // логика новичка
@@ -358,7 +361,6 @@ public class Bot extends TelegramLongPollingBot {
 
 
     }
-
 
 
 //        if (update.hasMessage()) {
