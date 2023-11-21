@@ -1,5 +1,7 @@
 package org.example;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -53,7 +55,9 @@ class TelegramUser {
     public Double getCef() {
         Double cef = cefy.get(0);
         cefy.remove(0);
-        return cef;
+        BigDecimal bd = new BigDecimal(cef).setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
     }
 
 }
