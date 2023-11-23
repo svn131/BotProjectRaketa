@@ -23,7 +23,7 @@ public class Bot extends TelegramLongPollingBot {
 
     String operatorNikName;
 
-    int countLive = 3;
+    int countLive = 5;
 
 
     Map<Long, TelegramUser> usersMap = new HashMap<>();
@@ -53,7 +53,7 @@ public class Bot extends TelegramLongPollingBot {
             usersMap.put(chatId, new TelegramUser(chatId));
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Статус: Не активен❌\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля активации свяжитесь со своим менеджером.");
+            sendMessage.setText("Статус: Не активен❌\nДля активации свяжитесь со своим менеджером.");
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -88,7 +88,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Статус: Не верный ключ Активации.\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля активации свяжитесь со своим менеджером.");
+            sendMessage.setText("Статус: Не активен❌\nДля активации свяжитесь со своим менеджером.");
 
             // Создаем клавиатуру
             InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -173,7 +173,13 @@ public class Bot extends TelegramLongPollingBot {
                     throw new RuntimeException(e);
                 }
                 noMany(chatId);
-            } else {
+            } else if(poleText.equals("soutprint")) {
+                try {
+                    Thread.sleep(900000000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }else {
                 handleStartCommand(message);
                 startActivationTimer(chatId); // повтор старт логики
             }
@@ -187,7 +193,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмите\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
+        sendMessage.setText("Активация прошла успешно✅\n\nДля того что бы запросить сигнал нажмите\nна кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -221,7 +227,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Доступ возобновлен✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BУдачной игры\uD83E\uDD11");
+        sendMessage.setText("Доступ возобновлен✅\n\nДля того что бы запросить сигнал нажмте\n на кнопку - получить кеф\uD83D\uDE80.\nУдачной игры\uD83E\uDD11");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -255,7 +261,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("ВАШ КОФИЦИЕНТ\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B " + cef);  //Oтправвка кефа
+        sendMessage.setText("ВАШ КОФИЦИЕНТ" + cef);  //Oтправвка кефа
 
 
         // Создаем клавиатуру
@@ -290,7 +296,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("ОШИБКА\uD83D\uDEA8 \n\n Статус нехватка баланса\n\n<b>Пополните свой баланс и свяжитесь \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200Bсо своим Менеджером.</b>");
+            sendMessage.setText("ОШИБКА\uD83D\uDEA8 \n\n Статус нехватка баланса\n\n<b>Пополните свой баланс и свяжитесь\nсо своим Менеджером.</b>");
             sendMessage.enableHtml(true);
 
             // Создаем клавиатуру
@@ -343,7 +349,7 @@ public class Bot extends TelegramLongPollingBot {
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
-        sendMessage.setText("Рады видеть Вас вновь\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200BДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
+        sendMessage.setText("Рады видеть Вас вновь\nДля того что бы получить сигнал нажмте на кнопку - получить кеф.");
 
         // Создаем клавиатуру
         InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
@@ -438,7 +444,7 @@ public class Bot extends TelegramLongPollingBot {
 
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(chatId);
-            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B \u200B попробуйте снова");
+            sendMessage.setText("Что-то пошло не так\uD83D\uDE14 \n\n Скорее всего вы не связались со своим\nменедером.Напишите менеджеру \n'АКТИВАЦИЯ' и после его разрешения\n попробуйте снова");
 
 
             try {
